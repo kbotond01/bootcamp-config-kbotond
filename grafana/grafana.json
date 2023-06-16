@@ -1,0 +1,1543 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_COGNITE_BOOTCAMP",
+      "label": "Cognite Bootcamp",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "cognitedata-datasource",
+      "pluginName": "Cognite Data Fusion"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "datasource",
+      "id": "cognitedata-datasource",
+      "name": "Cognite Data Fusion",
+      "version": "2.3.0"
+    },
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.0.1-cloud.2.a7a20fbf"
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "cognitedata-datasource",
+        "uid": "${DS_COGNITE_BOOTCAMP}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 0,
+        "y": 0
+      },
+      "id": 8,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "10.0.1-cloud.2.a7a20fbf",
+      "targets": [
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "avg(ts{metadata={type='performance'},assetSubtreeIds=[{id=$production_line}]})",
+          "granularity": "",
+          "label": "",
+          "latestValue": false,
+          "refId": "A",
+          "tab": "Custom",
+          "target": ""
+        }
+      ],
+      "title": "Performance for $production_line",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "cognitedata-datasource",
+        "uid": "${DS_COGNITE_BOOTCAMP}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*status$/"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "performance_machine"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 19,
+        "x": 5,
+        "y": 0
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "avg(ts{metadata={type='performance'},assetSubtreeIds=[{id=$production_line}]})",
+          "granularity": "",
+          "label": "performance_production_line",
+          "latestValue": false,
+          "refId": "A",
+          "tab": "Custom",
+          "target": ""
+        },
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "ts{metadata={type='performance'},assetSubtreeIds=[{id=$machine}]}",
+          "granularity": "",
+          "hide": false,
+          "label": "performance_machine",
+          "latestValue": false,
+          "refId": "B",
+          "tab": "Custom",
+          "target": ""
+        },
+        {
+          "aggregation": "none",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "ts{metadata={type='status'},assetSubtreeIds=[{id=$machine}]}",
+          "granularity": "",
+          "hide": false,
+          "label": "status",
+          "latestValue": false,
+          "refId": "C",
+          "tab": "Custom",
+          "target": ""
+        }
+      ],
+      "title": "Performance",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "cognitedata-datasource",
+        "uid": "${DS_COGNITE_BOOTCAMP}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 70
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 0,
+        "y": 8
+      },
+      "id": 1,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "10.0.1-cloud.2.a7a20fbf",
+      "targets": [
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "avg(ts{metadata={type='availability'},assetSubtreeIds=[{id=$production_line}]})",
+          "granularity": "",
+          "label": "",
+          "latestValue": false,
+          "refId": "A",
+          "tab": "Custom",
+          "target": ""
+        }
+      ],
+      "title": "Availability ",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "cognitedata-datasource",
+        "uid": "${DS_COGNITE_BOOTCAMP}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*planned_status|status$/"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 19,
+        "x": 5,
+        "y": 8
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "avg(ts{metadata={type='availability'},assetSubtreeIds=[{id=$production_line}]})",
+          "granularity": "",
+          "label": "availability_production_line",
+          "latestValue": false,
+          "refId": "A",
+          "tab": "Custom",
+          "target": ""
+        },
+        {
+          "aggregation": "stepInterpolation",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "ts{metadata={type='planned_status'},assetSubtreeIds=[{id=$machine}]}",
+          "granularity": "",
+          "hide": false,
+          "label": "planned_status",
+          "latestValue": false,
+          "refId": "B",
+          "tab": "Custom",
+          "target": ""
+        },
+        {
+          "aggregation": "stepInterpolation",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "ts{metadata={type='status'},assetSubtreeIds=[{id=$machine}]}",
+          "granularity": "",
+          "hide": false,
+          "label": "status",
+          "latestValue": false,
+          "refId": "C",
+          "tab": "Custom",
+          "target": ""
+        },
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "ts{metadata={type='availability'},assetSubtreeIds=[{id=$machine}]}",
+          "granularity": "",
+          "hide": false,
+          "label": "availability_machine",
+          "latestValue": false,
+          "refId": "D",
+          "tab": "Custom",
+          "target": ""
+        }
+      ],
+      "title": "Availability",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "cognitedata-datasource",
+        "uid": "${DS_COGNITE_BOOTCAMP}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 0,
+        "y": 16
+      },
+      "id": 7,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "10.0.1-cloud.2.a7a20fbf",
+      "targets": [
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "avg(ts{metadata={type='quality'},assetSubtreeIds=[{id=$production_line}]})",
+          "granularity": "",
+          "label": "",
+          "latestValue": false,
+          "refId": "A",
+          "tab": "Custom",
+          "target": ""
+        }
+      ],
+      "title": "Quality",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "cognitedata-datasource",
+        "uid": "${DS_COGNITE_BOOTCAMP}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*good|count$/"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 19,
+        "x": 5,
+        "y": 16
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "avg(ts{metadata={type='quality'},assetSubtreeIds=[{id=$production_line}]})",
+          "granularity": "",
+          "label": "quality_production_line",
+          "latestValue": false,
+          "refId": "A",
+          "tab": "Custom",
+          "target": ""
+        },
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "ts{metadata={type='count'},assetSubtreeIds=[{id=$machine}]}",
+          "granularity": "",
+          "hide": false,
+          "label": "count",
+          "latestValue": false,
+          "refId": "B",
+          "tab": "Custom",
+          "target": ""
+        },
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "ts{metadata={type='good'},assetSubtreeIds=[{id=$machine}]}",
+          "granularity": "",
+          "hide": false,
+          "label": "good",
+          "latestValue": false,
+          "refId": "C",
+          "tab": "Custom",
+          "target": ""
+        },
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "ts{metadata={type='quality'},assetSubtreeIds=[{id=$machine}]}",
+          "granularity": "",
+          "hide": false,
+          "label": "quality_production_line",
+          "latestValue": false,
+          "refId": "D",
+          "tab": "Custom",
+          "target": ""
+        }
+      ],
+      "title": "Quality ",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "cognitedata-datasource",
+        "uid": "${DS_COGNITE_BOOTCAMP}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 5,
+        "x": 0,
+        "y": 24
+      },
+      "id": 9,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "10.0.1-cloud.2.a7a20fbf",
+      "targets": [
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "avg(ts{metadata={type='oee'},assetSubtreeIds=[{id=$production_line}]})",
+          "granularity": "",
+          "label": "",
+          "latestValue": false,
+          "refId": "A",
+          "tab": "Custom",
+          "target": ""
+        }
+      ],
+      "title": "OOE for $production_line",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "cognitedata-datasource",
+        "uid": "${DS_COGNITE_BOOTCAMP}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 19,
+        "x": 5,
+        "y": 24
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "avg(ts{metadata={type='oee'},assetSubtreeIds=[{id=$production_line}]})",
+          "granularity": "",
+          "label": "oee production_line: $production_line",
+          "latestValue": false,
+          "refId": "A",
+          "tab": "Custom",
+          "target": ""
+        },
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "ts{metadata={type='oee'},assetSubtreeIds=[{id=$machine}]}",
+          "granularity": "",
+          "hide": false,
+          "label": "oee machineId: $machine",
+          "latestValue": false,
+          "refId": "B",
+          "tab": "Custom",
+          "target": ""
+        },
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "",
+          "granularity": "",
+          "hide": false,
+          "label": "",
+          "latestValue": false,
+          "refId": "C",
+          "tab": "Asset",
+          "target": ""
+        }
+      ],
+      "title": "Timeseries",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "cognitedata-datasource",
+        "uid": "${DS_COGNITE_BOOTCAMP}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 32
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "ts{metadata={type='availability'},assetSubtreeIds=[{id=$machine}]}",
+          "granularity": "",
+          "label": "Availability",
+          "latestValue": false,
+          "refId": "A",
+          "tab": "Custom",
+          "target": ""
+        },
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "ts{metadata={type='performance'},assetSubtreeIds=[{id=$machine}]}",
+          "granularity": "",
+          "hide": false,
+          "label": "Performance ",
+          "latestValue": false,
+          "refId": "B",
+          "tab": "Custom",
+          "target": ""
+        },
+        {
+          "aggregation": "average",
+          "assetQuery": {
+            "includeSubtrees": false,
+            "target": ""
+          },
+          "datasource": {
+            "type": "cognitedata-datasource",
+            "uid": "${DS_COGNITE_BOOTCAMP}"
+          },
+          "eventQuery": {
+            "activeAtTimeRange": true,
+            "columns": [
+              "externalId",
+              "type",
+              "subtype",
+              "description",
+              "startTime",
+              "endTime"
+            ],
+            "expr": ""
+          },
+          "expr": "ts{metadata={type='quality'},assetSubtreeIds=[{id=$machine}]}",
+          "granularity": "",
+          "hide": false,
+          "label": "Quality",
+          "latestValue": false,
+          "refId": "C",
+          "tab": "Custom",
+          "target": ""
+        }
+      ],
+      "title": "OEE",
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "pq",
+            "binary": {
+              "left": "Performance",
+              "reducer": "sum",
+              "right": "Quality"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "OEE_pqa",
+            "binary": {
+              "left": "pq",
+              "reducer": "sum",
+              "right": "Availability"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        }
+      ],
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "chicago",
+          "value": "chicago"
+        },
+        "description": "Label and Value",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Select Site",
+        "multi": false,
+        "name": "site",
+        "options": [
+          {
+            "selected": false,
+            "text": "oslo",
+            "value": "oslo"
+          },
+          {
+            "selected": false,
+            "text": "hannover",
+            "value": "hannover"
+          },
+          {
+            "selected": false,
+            "text": "nuremberg",
+            "value": "nuremberg"
+          },
+          {
+            "selected": false,
+            "text": "marseille",
+            "value": "marseille"
+          },
+          {
+            "selected": false,
+            "text": "houston",
+            "value": "houston"
+          },
+          {
+            "selected": false,
+            "text": "sao_paulo",
+            "value": "sao_paulo"
+          },
+          {
+            "selected": false,
+            "text": "kuala_lumpur",
+            "value": "kuala_lumpur"
+          },
+          {
+            "selected": true,
+            "text": "chicago",
+            "value": "chicago"
+          },
+          {
+            "selected": false,
+            "text": "rotterdam",
+            "value": "rotterdam"
+          },
+          {
+            "selected": false,
+            "text": "london",
+            "value": "london"
+          }
+        ],
+        "query": "oslo,hannover,nuremberg,marseille,houston,sao_paulo,kuala_lumpur,chicago,rotterdam,london",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "cognitedata-datasource",
+          "uid": "${DS_COGNITE_BOOTCAMP}"
+        },
+        "definition": "assets{parentExternalIds=['${site}_production']}",
+        "description": "Label and Value",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Production Line",
+        "multi": false,
+        "name": "production_line",
+        "options": [],
+        "query": {
+          "query": "assets{parentExternalIds=['${site}_production']}"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "cognitedata-datasource",
+          "uid": "${DS_COGNITE_BOOTCAMP}"
+        },
+        "definition": "assets{parentIds=[$production_line]}",
+        "description": "Label and Value",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Machine",
+        "multi": false,
+        "name": "machine",
+        "options": [],
+        "query": {
+          "query": "assets{parentIds=[$production_line]}"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Bootcamp",
+  "uid": "cf60b867-1548-4f3c-8dae-d0acdce25570",
+  "version": 8,
+  "weekStart": ""
+}
